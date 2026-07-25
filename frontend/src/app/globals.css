@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Lato", sans-serif;
+
+  --color-gold-50: #fbf8f1;
+  --color-gold-100: #f5eedc;
+  --color-gold-200: #ead8b1;
+  --color-gold-300: #ddbf7f;
+  --color-gold-400: #d3a955;
+  --color-gold-500: #c89233;
+  --color-gold-600: #b07628;
+  --color-gold-700: #8c5822;
+  --color-gold-800: #744621;
+  --color-gold-900: #5f3a1e;
+
+  --color-brown-900: #1a120c;
+  --color-brown-950: #0c0805;
+  --color-brown-800: #2d2116;
+  --color-brown-700: #3f2f21;
+}
+
+:root {
+  --background: #fdfaf6;
+  --foreground: #1a120c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1a120c;
+    --foreground: #fbf8f1;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+}
+
+.luxury-gradient {
+  background: linear-gradient(135deg, var(--color-gold-300) 0%, var(--color-gold-500) 50%, var(--color-gold-700) 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-gold-300) 0%, var(--color-gold-500) 50%, var(--color-gold-700) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

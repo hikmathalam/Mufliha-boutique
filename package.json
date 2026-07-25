@@ -1,0 +1,19 @@
+{
+  "name": "mufliha-boutique",
+  "version": "1.0.0",
+  "description": "Mufliha Boutique - Luxury Fashion Store",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hikmathalam/Mufliha-boutique/issues"
+  },
+  "homepage": "https://github.com/hikmathalam/Mufliha-boutique#readme",
+  "scripts": {
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && node server.js",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "build": "cd frontend && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.0"
+  }
+}
