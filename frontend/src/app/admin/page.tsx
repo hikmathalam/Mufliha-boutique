@@ -10,10 +10,11 @@ import {
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import API_BASE from "@/lib/api";
 
 const { Title, Text } = Typography;
 
-const API = "http://localhost:5000/api/admin";
+const API = `${API_BASE}/api/admin`;
 
 const statusGradients: Record<string, string> = {
   Pending: "linear-gradient(90deg, #f59e0b 0%, #fef08a 100%)",

@@ -6,6 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { Heart, Trash2, Calendar, Star, Shield } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import API_BASE from "@/lib/api";
 
 export default function WishlistPage() {
   const [wishlistItems, setWishlistItems] = useState([]);
@@ -14,7 +15,7 @@ export default function WishlistPage() {
 
   const fetchWishlist = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/users/wishlist", {
+      const res = await fetch(`${API_BASE}/api/users/wishlist`, {
         credentials: "include",
       });
       if (res.ok) {
@@ -37,7 +38,7 @@ export default function WishlistPage() {
     setWishlistItems((prev) => prev.filter((item: any) => item._id !== productId));
 
     try {
-      const res = await fetch("http://localhost:5000/api/users/wishlist", {
+      const res = await fetch(`${API_BASE}/api/users/wishlist`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ productId }),

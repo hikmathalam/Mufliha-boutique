@@ -17,13 +17,13 @@ const MEMORY_USERS = [];
 // Pre-hash passwords once on startup
 const initMemoryUsers = async () => {
   if (MEMORY_USERS.length > 0) return;
-  const adminHash = await bcrypt.hash('admin123', 10);
+  const adminHash = await bcrypt.hash('hikmath1234', 10);
   const userHash = await bcrypt.hash('user123', 10);
   MEMORY_USERS.push(
     {
       _id: 'mem_admin_001',
       name: 'Mufliha Admin',
-      email: 'admin@mufliha.com',
+      email: 'admin@hikmath.com',
       password: adminHash,
       isAdmin: true,
       wishlist: [],

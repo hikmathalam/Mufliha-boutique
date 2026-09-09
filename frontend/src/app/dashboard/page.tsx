@@ -5,6 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Link from "next/link";
 import { Calendar, Check, X, Clock, AlertCircle, ArrowRight } from "lucide-react";
+import API_BASE from "@/lib/api";
 
 interface Booking {
   _id: string;
@@ -29,7 +30,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/bookings/my-bookings", {
+        const res = await fetch(`${API_BASE}/api/bookings/my-bookings`, {
           credentials: "include",
         });
         if (res.ok) {

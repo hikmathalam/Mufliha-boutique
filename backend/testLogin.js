@@ -9,7 +9,7 @@ const testLogin = async () => {
     await mongoose.connect(process.env.MONGO_URI);
     console.log('MongoDB connected for testing');
 
-    const email = 'hikmathalam121575@gmail.com';
+    const email = 'admin@hikmath.com';
     const password = 'hikmath1234';
 
     const user = await User.findOne({ email });

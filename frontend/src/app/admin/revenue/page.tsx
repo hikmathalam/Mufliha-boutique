@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 import { Card, Row, Col, Statistic, Table, Typography, Spin, Tag } from "antd";
 import { BookOutlined, RiseOutlined } from "@ant-design/icons";
 import { motion } from "framer-motion";
+import API_BASE from "@/lib/api";
 
 const { Title, Text } = Typography;
-const API = "http://localhost:5000/api/admin";
+const API = `${API_BASE}/api/admin`;
 
 export default function AdminRevenue() {
   const [stats, setStats] = useState<any>(null);

@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { Menu, X, Heart, User as UserIcon, LogOut, LayoutDashboard } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import API_BASE from "@/lib/api";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -32,8 +33,7 @@ export default function Navbar() {
       return;
     }
     try {
-      const base = (process.env.NEXT_PUBLIC_API_URL as string) || "http://localhost:5000";
-      const res = await fetch(`${base}/api/users/wishlist`, {
+      const res = await fetch(`${API_BASE}/api/users/wishlist`, {
         credentials: "include",
       });
 

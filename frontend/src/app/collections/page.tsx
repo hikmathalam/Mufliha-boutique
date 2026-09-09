@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Search, Filter, Heart, RotateCcw, Star, CheckCircle, HelpCircle } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
+import API_BASE from "@/lib/api";
 
 export default function CollectionsPage() {
   const [products, setProducts] = useState<any[]>([]);
@@ -32,8 +33,7 @@ export default function CollectionsPage() {
   const fetchProducts = useCallback(async () => {
     setLoading(true);
     try {
-      const base = (process.env.NEXT_PUBLIC_API_URL as string) || "http://localhost:5000";
-      let url = `${base}/api/products?`;
+      let url = `${API_BASE}/api/products?`;
       if (keyword) url += `keyword=${encodeURIComponent(keyword)}&`;
       if (category !== "All") url += `category=${encodeURIComponent(category)}&`;
       if (minPrice) url += `minPrice=${minPrice}&`;
@@ -59,8 +59,7 @@ export default function CollectionsPage() {
   const fetchWishlist = useCallback(async () => {
     if (!user) return;
     try {
-      const base = (process.env.NEXT_PUBLIC_API_URL as string) || "http://localhost:5000";
-      const res = await fetch(`${base}/api/users/wishlist`, {
+      const res = await fetch(`${API_BASE}/api/users/wishlist`, {
         credentials: "include",
       });
       if (res.ok) {
@@ -93,8 +92,7 @@ export default function CollectionsPage() {
     );
 
     try {
-      const base = (process.env.NEXT_PUBLIC_API_URL as string) || "http://localhost:5000";
-      const res = await fetch(`${base}/api/users/wishlist`, {
+      const res = await fetch(`${API_BASE}/api/users/wishlist`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ productId }),

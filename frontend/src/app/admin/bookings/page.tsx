@@ -5,9 +5,10 @@ import {
   Table, Tag, Select, Button, Space, Popconfirm, message, Typography, Modal, Descriptions, Input,
 } from "antd";
 import { DeleteOutlined, EyeOutlined } from "@ant-design/icons";
+import API_BASE from "@/lib/api";
 
 const { Title, Text } = Typography;
-const API = "http://localhost:5000/api/admin";
+const API = `${API_BASE}/api/admin`;
 
 const statusColors: Record<string, string> = {
   Pending: "gold",

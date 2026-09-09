@@ -4,7 +4,7 @@ const User = require('./models/User');
 
 dotenv.config();
 
-const ADMIN_EMAIL = 'hikmathalam121575@gmail.com';
+const ADMIN_EMAIL = 'admin@hikmath.com';
 const ADMIN_PASSWORD = 'hikmath1234';
 const ADMIN_NAME = 'Mufliha Admin';
 

@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import API_BASE from "@/lib/api";
 
 interface User {
   _id: string;
@@ -41,8 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
-    const base = (process.env.NEXT_PUBLIC_API_URL as string) || "http://localhost:5000";
-    fetch(`${base}/api/auth/logout`, {
+    fetch(`${API_BASE}/api/auth/logout`, {
       method: "POST",
       credentials: "include",
     })

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { Check, Shield, AlertCircle, Heart, Star, Calendar, ArrowRight, X, Clock, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import API_BASE from "@/lib/api";
 
 // ✅ Configure your WhatsApp number here (country code + number, no spaces or +)
 const WHATSAPP_NUMBER = "917625046891"; // Mufliha Boutique WhatsApp
@@ -87,8 +88,7 @@ export default function ProductDetailsPage() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const base = (process.env.NEXT_PUBLIC_API_URL as string) || "http://localhost:5000";
-        const res = await fetch(`${base}/api/products/${id}`);
+        const res = await fetch(`${API_BASE}/api/products/${id}`);
         if (!res.ok) throw new Error("Failed to load product");
         const data = await res.json();
         setProduct(data);
@@ -117,8 +117,7 @@ export default function ProductDetailsPage() {
     const fetchWishlist = async () => {
       if (!user) return;
       try {
-        const base = (process.env.NEXT_PUBLIC_API_URL as string) || "http://localhost:5000";
-        const res = await fetch(`${base}/api/users/wishlist`, {
+        const res = await fetch(`${API_BASE}/api/users/wishlist`, {
           credentials: "include",
         });
         if (res.ok) {
@@ -182,9 +181,8 @@ export default function ProductDetailsPage() {
       setAvailabilityStatus(null);
       setConflictingDates(null);
       try {
-        const base = (process.env.NEXT_PUBLIC_API_URL as string) || "http://localhost:5000";
         const res = await fetch(
-          `${base}/api/bookings/check?productId=${id}&startDate=${startDate}&endDate=${endDate}`
+          `${API_BASE}/api/bookings/check?productId=${id}&startDate=${startDate}&endDate=${endDate}`
         );
         const data = await res.json();
         setAvailabilityStatus(data.available);
@@ -213,8 +211,7 @@ export default function ProductDetailsPage() {
     setWishlist(prev => isAdding ? [...prev, id as string] : prev.filter(i => i !== id));
 
     try {
-      const base = (process.env.NEXT_PUBLIC_API_URL as string) || "http://localhost:5000";
-      const res = await fetch(`${base}/api/users/wishlist`, {
+      const res = await fetch(`${API_BASE}/api/users/wishlist`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ productId: id }),
@@ -247,7 +244,7 @@ export default function ProductDetailsPage() {
     setBookingError("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/bookings", {
+      const res = await fetch(`${API_BASE}/api/bookings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

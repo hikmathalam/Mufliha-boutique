@@ -7,7 +7,8 @@ import {
 import { PlusOutlined, EditOutlined, DeleteOutlined, UploadOutlined } from "@ant-design/icons";
 
 const { Title, Text } = Typography;
-const API = "http://localhost:5000/api/admin";
+import API_BASE from "@/lib/api";
+const API = `${API_BASE}/api/admin`;
 
 const categories = ["Bridal Sets", "Necklaces", "Earrings & Bangles", "Fancy Items", "Rings", "Anklets", "Bridal Dresses"];
 
@@ -29,7 +30,7 @@ export default function AdminProducts() {
     formData.append("image", file);
 
     try {
-      const res = await fetch("http://localhost:5000/api/admin/upload", {
+      const res = await fetch(`${API_BASE}/api/admin/upload`, {
         method: "POST",
         body: formData,
         credentials: "include",

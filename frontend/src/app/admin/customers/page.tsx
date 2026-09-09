@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react";
 import { Table, Tag, Typography, Avatar, Input } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import API_BASE from "@/lib/api";
 
 const { Title, Text } = Typography;
-const API = "http://localhost:5000/api/admin";
+const API = `${API_BASE}/api/admin`;
 
 export default function AdminCustomers() {
   const [customers, setCustomers] = useState([]);
