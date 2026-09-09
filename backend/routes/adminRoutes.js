@@ -18,10 +18,16 @@ const {
   getStats,
 } = require('../controllers/adminController');
 
-// Ensure uploads directory exists
-const uploadDir = path.join(__dirname, '../uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+const os = require('os');
+
+// Ensure uploads directory exists safely without crashing read-only serverless environments
+const uploadDir = process.env.VERCEL ? path.join(os.tmpdir(), 'uploads') : path.join(__dirname, '../uploads');
+try {
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+} catch (err) {
+  console.warn('Upload directory creation skipped or failed (safe in serverless):', err.message);
 }
 
 // Multer Storage Configuration

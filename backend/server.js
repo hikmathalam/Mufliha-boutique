@@ -50,8 +50,10 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// Serve static uploaded files
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Serve static uploaded files safely
+const os = require('os');
+const uploadPath = process.env.VERCEL ? path.join(os.tmpdir(), 'uploads') : path.join(__dirname, 'uploads');
+app.use('/uploads', express.static(uploadPath));
 
 // Middleware
 app.use(express.json());
