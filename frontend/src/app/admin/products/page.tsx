@@ -151,8 +151,7 @@ export default function AdminProducts() {
         const src = imgs?.[0] || "https://images.unsplash.com/photo-1599643478524-fb66f72400ae?q=80&w=200";
         return (
           // <div style={{ display: "flex", itemsCenter: "center", gap: 8 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <img
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>            <img
               src={src}
               alt=""
               style={{ width: 40, height: 40, objectFit: "cover", borderRadius: 6, border: "1px solid rgba(212,168,83,0.3)" }}
