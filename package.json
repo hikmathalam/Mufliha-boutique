@@ -7,6 +7,10 @@
     "url": "https://github.com/hikmathalam/Mufliha-boutique/issues"
   },
   "homepage": "https://github.com/hikmathalam/Mufliha-boutique#readme",
+  "allowScripts": {
+    "sharp": true,
+    "unrs-resolver": true
+  },
   "scripts": {
     "dev:frontend": "cd frontend && npm run dev",
     "dev:backend": "cd backend && node server.js",
