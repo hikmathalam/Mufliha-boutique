@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const os = require('os');
 
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
@@ -15,11 +16,14 @@ dotenv.config();
 
 const app = express();
 
+// Disable mongoose buffering in serverless to prevent requests hanging until timeout
+mongoose.set('bufferCommands', false);
+
 // Cache MongoDB connection across serverless function invocations
 let isConnected = false;
 
 const connectDB = async () => {
-  if (isConnected || mongoose.connection.readyState >= 1) {
+  if (isConnected || mongoose.connection.readyState === 1) {
     isConnected = true;
     return;
   }
@@ -29,7 +33,9 @@ const connectDB = async () => {
     return;
   }
   try {
-    const db = await mongoose.connect(mongoUri);
+    const db = await mongoose.connect(mongoUri, {
+      serverSelectionTimeoutMS: 3000, // 3 second timeout max - prevents serverless timeout crashes!
+    });
     isConnected = db.connections[0].readyState === 1;
     console.log('✅ MongoDB connected');
   } catch (err) {
@@ -37,27 +43,16 @@ const connectDB = async () => {
   }
 };
 
-// Connect to DB immediately on server start / cold start
+// Initiate connection on startup
 connectDB().catch(err => console.error('Initial DB connection error:', err));
-
-// Middleware to ensure DB connection before handling requests
-app.use(async (req, res, next) => {
-  try {
-    await connectDB();
-  } catch (err) {
-    console.error('DB connect middleware error:', err);
-  }
-  next();
-});
-
-// Serve static uploaded files safely
-const os = require('os');
-const uploadPath = process.env.VERCEL ? path.join(os.tmpdir(), 'uploads') : path.join(__dirname, 'uploads');
-app.use('/uploads', express.static(uploadPath));
 
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
+
+// Serve static uploaded files safely
+const uploadPath = process.env.VERCEL ? path.join(os.tmpdir(), 'uploads') : path.join(__dirname, 'uploads');
+app.use('/uploads', express.static(uploadPath));
 
 // CORS configuration (supports localhost, configured FRONTEND_URL, and *.vercel.app)
 const allowedOrigins = [
@@ -80,14 +75,28 @@ app.use(cors({
   credentials: true,
 }));
 
-// Root Health Check endpoint
-app.get(['/', '/api'], (req, res) => {
-  res.json({
+// Root Health Check endpoint (always returns 200 immediately without waiting for DB)
+app.get(['/', '/api', '/api/health'], (req, res) => {
+  res.status(200).json({
     status: 'ok',
     message: 'Mufliha Boutique Backend API is running',
     timestamp: new Date().toISOString(),
     database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    env: {
+      hasMongoUri: Boolean(process.env.MONGO_URI),
+      hasJwtSecret: Boolean(process.env.JWT_SECRET),
+    },
   });
+});
+
+// Middleware to ensure DB connection before handling API routes
+app.use('/api', async (req, res, next) => {
+  try {
+    await connectDB();
+  } catch (err) {
+    console.error('DB connect error:', err);
+  }
+  next();
 });
 
 // Routes
@@ -108,7 +117,7 @@ app.use((err, req, res, next) => {
 
 // Start listening only if run directly as standalone process (e.g. node server.js)
 const PORT = process.env.PORT || 5000;
-if (require.main === module) {
+if (require.main === module || !process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
