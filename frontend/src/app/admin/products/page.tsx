@@ -142,7 +142,28 @@ export default function AdminProducts() {
       title: "Available", dataIndex: "isAvailable", key: "isAvailable",
       render: (v: boolean) => <Tag color={v ? "green" : "red"}>{v ? "Yes" : "No"}</Tag>,
     },
-    { title: "Images", dataIndex: "images", key: "images", render: (imgs: string[]) => imgs?.length || 0 },
+    {
+      title: "Image Preview",
+      dataIndex: "images",
+      key: "images",
+      width: 120,
+      render: (imgs: string[]) => {
+        const src = imgs?.[0] || "https://images.unsplash.com/photo-1599643478524-fb66f72400ae?q=80&w=200";
+        return (
+          <div style={{ display: "flex", itemsCenter: "center", gap: 8 }}>
+            <img
+              src={src}
+              alt=""
+              style={{ width: 40, height: 40, objectFit: "cover", borderRadius: 6, border: "1px solid rgba(212,168,83,0.3)" }}
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1599643478524-fb66f72400ae?q=80&w=200";
+              }}
+            />
+            <Tag color="gold" style={{ margin: 0 }}>{imgs?.length || 0}</Tag>
+          </div>
+        );
+      },
+    },
     {
       title: "Actions", key: "actions",
       render: (_: any, record: any) => (

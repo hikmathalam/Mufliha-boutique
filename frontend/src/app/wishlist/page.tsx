@@ -58,18 +58,26 @@ export default function WishlistPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-brown-950 pt-28 pb-16 px-6">
-        <div className="max-w-5xl mx-auto">
-          {/* Header */}
-          <div className="flex items-center gap-4 mb-10 border-b border-gold-800/30 pb-6">
-            <Heart className="text-gold-500 fill-gold-500" size={32} />
-            <div>
-              <h1 className="text-4xl font-serif text-gold-100">My Wishlist</h1>
-              <p className="text-gold-200/50 text-xs uppercase tracking-wider mt-1">
-                Your curated choices for the big day
-              </p>
+      <div className="min-h-screen bg-brown-950 pb-16">
+        {/* Wishlist Hero Banner */}
+        <div className="relative h-44 md:h-56 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#1a120c]/50 to-[#1a120c] z-10" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=2800&auto=format&fit=crop"
+            alt="Wishlist Banner"
+            className="w-full h-full object-cover object-center opacity-50"
+          />
+          <div className="absolute inset-0 z-20 flex items-center justify-center pt-14">
+            <div className="text-center flex flex-col items-center gap-2">
+              <Heart className="text-[#c89233] fill-[#c89233]/30" size={32} />
+              <h1 className="font-serif text-3xl md:text-4xl text-[#f5eedc]">My Wishlist</h1>
+              <p className="text-[#ddbf7f] text-xs uppercase tracking-[0.2em]">Your curated choices for the big day</p>
             </div>
           </div>
+        </div>
+
+        <div className="max-w-5xl mx-auto px-6 -mt-4 relative z-30">
 
           {loading ? (
             <div className="flex flex-col items-center justify-center py-20 gap-4">
@@ -109,9 +117,12 @@ export default function WishlistPage() {
                     {/* Image Area */}
                     <div className="w-1/3 relative bg-brown-950">
                       <img
-                        src={item.images[0] || "https://images.unsplash.com/photo-1599643478524-fb66f72400ae"}
+                        src={item.images[0] || "https://images.unsplash.com/photo-1599643478524-fb66f72400ae?q=80&w=800"}
                         alt={item.name}
                         className="w-full h-full object-cover"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=400";
+                        }}
                       />
                       {!item.isAvailable && (
                         <div className="absolute inset-0 bg-brown-950/70 flex items-center justify-center p-1.5 text-center">

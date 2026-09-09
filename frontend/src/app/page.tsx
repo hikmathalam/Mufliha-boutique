@@ -296,8 +296,97 @@ export default function Home() {
         </div>
       </section>
 
+      {/* About / How It Works */}
+      <section id="about" className="py-24 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-[#c89233]/5 via-[#1a120c] to-[#1a120c] -z-10" />
+        <div className="max-w-7xl mx-auto">
+          <motion.div {...fadeInUp} className="text-center mb-16">
+            <h2 className="font-serif text-4xl md:text-5xl mb-4 text-[#f5eedc]">How It Works</h2>
+            <div className="w-24 h-px bg-[#c89233] mx-auto mb-6" />
+            <p className="text-[#ddbf7f] max-w-2xl mx-auto">
+              Our seamless rental experience lets you wear breathtaking luxury for your special day without the lifetime commitment.
+            </p>
+          </motion.div>
 
-      
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-20">
+            {[
+              {
+                step: "01",
+                title: "Browse & Select",
+                desc: "Explore our curated collection of premium jewellery and bridal wear. Filter by category, price, and availability.",
+                img: "https://images.unsplash.com/photo-1573408301185-9519f94bf0cf?q=80&w=800&auto=format&fit=crop"
+              },
+              {
+                step: "02",
+                title: "Book Your Dates",
+                desc: "Choose your rental period and confirm your booking with a refundable security deposit through WhatsApp.",
+                img: "https://images.unsplash.com/photo-1554941829-202a0b2403b8?q=80&w=800&auto=format&fit=crop"
+              },
+              {
+                step: "03",
+                title: "Wear & Return",
+                desc: "Receive your pieces, shine on your special day, and return them after your event. Hassle-free and elegant.",
+                img: "https://images.unsplash.com/photo-1596451190630-186aff535bf2?q=80&w=800&auto=format&fit=crop"
+              }
+            ].map((item, i) => (
+              <motion.div key={i} {...fadeInUp} className="group relative overflow-hidden rounded-sm">
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-70 group-hover:opacity-90"
+                    onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=800"; }}
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1a120c] via-[#1a120c]/60 to-transparent flex flex-col justify-end p-8">
+                  <span className="font-serif text-5xl text-[#c89233]/30 font-bold mb-2">{item.step}</span>
+                  <h3 className="font-serif text-2xl text-[#fbf8f1] mb-2">{item.title}</h3>
+                  <p className="text-[#ddbf7f] text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* About Boutique - Full Width Image Banner */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9 }}
+            className="relative rounded-sm overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1a120c] via-[#1a120c]/70 to-transparent z-10" />
+            <img
+              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2940&auto=format&fit=crop"
+              alt="Mufliha Boutique Story"
+              className="w-full h-[400px] md:h-[500px] object-cover object-center"
+              onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1594552072238-185671175bf9?q=80&w=2787"; }}
+            />
+            <div className="absolute inset-0 z-20 flex flex-col justify-center px-10 md:px-20 max-w-3xl">
+              <p className="text-[#ddbf7f] uppercase tracking-[0.2em] text-sm mb-4">Our Story</p>
+              <h2 className="font-serif text-4xl md:text-5xl text-[#f5eedc] mb-6 leading-tight">
+                Crafting Unforgettable <br className="hidden md:block" /> Bridal Moments
+              </h2>
+              <p className="text-[#e8d8b1] font-light mb-8 leading-relaxed max-w-xl">
+                Born from a passion for accessible luxury, Mufliha Boutique was founded to ensure every bride shines with the finest jewellery and attire — without compromise. With a 6-month color and shine warranty on all gold pieces, we stand by the quality you deserve.
+              </p>
+              <div className="flex gap-12">
+                {[
+                  { num: "500+", label: "Happy Brides" },
+                  { num: "6 Mo", label: "Warranty" },
+                  { num: "100+", label: "Premium Pieces" }
+                ].map((stat, i) => (
+                  <div key={i}>
+                    <p className="font-serif text-3xl text-[#c89233] font-bold">{stat.num}</p>
+                    <p className="text-[#ddbf7f] text-xs uppercase tracking-widest">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       <style dangerouslySetInnerHTML={{__html: `
         .hide-scrollbar::-webkit-scrollbar {
           display: none;

@@ -67,18 +67,35 @@ export default function DashboardPage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-brown-950 pt-28 pb-16 px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-6 flex items-center justify-between">
-            <Link href="/" className="text-gold-500 hover:text-gold-400 text-sm">&larr; Back to Home</Link>
+      <div className="min-h-screen bg-brown-950 pb-16">
+        {/* Dashboard Hero Banner */}
+        <div className="relative h-48 md:h-60 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#1a120c]/40 to-[#1a120c] z-10" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=80&w=2864&auto=format&fit=crop"
+            alt="Mufliha Boutique"
+            className="w-full h-full object-cover object-center opacity-60"
+          />
+          <div className="absolute inset-0 z-20 flex items-center justify-center pt-16">
+            <div className="text-center">
+              <p className="text-[#ddbf7f] text-xs uppercase tracking-[0.3em] mb-1">Your Account</p>
+              <h1 className="font-serif text-3xl md:text-4xl text-[#f5eedc]">My Dashboard</h1>
+            </div>
+          </div>
+        </div>
+
+        <div className="max-w-4xl mx-auto px-6 -mt-6 relative z-30">
+          <div className="mb-4 flex items-center justify-between">
+            <Link href="/" className="text-gold-500 hover:text-gold-400 text-sm">← Back to Home</Link>
           </div>
 
           <div className="bg-brown-900 rounded-2xl border border-gold-800/30 p-8 shadow-2xl">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-              <h1 className="text-4xl font-serif text-gold-400">Dashboard</h1>
+              <h1 className="text-4xl font-serif text-gold-400 sr-only">Dashboard</h1>
               <button
                 onClick={logout}
-                className="px-6 py-2 border border-gold-600/50 text-gold-400 rounded-lg hover:bg-gold-600/10 transition-colors"
+                className="ml-auto px-6 py-2 border border-gold-600/50 text-gold-400 rounded-lg hover:bg-gold-600/10 transition-colors text-sm"
               >
                 Sign Out
               </button>
@@ -124,11 +141,15 @@ export default function DashboardPage() {
                         className="flex items-center gap-4 bg-brown-900/60 rounded-lg p-3 border border-gold-800/10"
                       >
                         <div className="w-12 h-12 rounded-lg bg-brown-800 overflow-hidden shrink-0">
-                          {booking.product?.images?.[0] ? (
-                            <img src={booking.product.images[0]} alt="" className="w-full h-full object-cover" />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center text-gold-500 text-xs">N/A</div>
-                          )}
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={booking.product?.images?.[0] || "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=200"}
+                          alt=""
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=200";
+                          }}
+                        />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-gold-100 text-sm font-semibold truncate">

@@ -126,40 +126,72 @@ export default function CollectionsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-brown-950 pt-28 pb-16 px-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Page Header */}
-        <div className="mb-10 text-center md:text-left">
-          <span className="text-xs font-semibold tracking-[0.3em] text-gold-400 uppercase">
+    <div className="min-h-screen bg-brown-950 pb-16">
+      {/* Hero Banner with Image */}
+      <div className="relative h-[320px] md:h-[420px] overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1a120c]/50 via-[#1a120c]/60 to-[#1a120c] z-10" />
+        <img
+          src="https://images.unsplash.com/photo-1573408301185-9519f94bf0cf?q=80&w=2940&auto=format&fit=crop"
+          alt="Luxury jewellery collection"
+          className="w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6">
+          <span className="text-xs font-semibold tracking-[0.3em] text-gold-400 uppercase mb-4">
             Exclusive Rentals
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-gold-100 mt-2 mb-3">
-            Warranty Gold Jewellery
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-gold-100 mb-4">
+            Our Collections
           </h1>
-          <div className="w-20 h-0.5 bg-gold-500 mb-4 mx-auto md:mx-0"></div>
-          <p className="text-gold-200/70 max-w-2xl font-light">
-            Explore our curated collections of premium gold-plated jewellery with up to 6 months warranty on shine and color, along with designer bridal dresses.
+          <div className="w-20 h-0.5 bg-gold-500 mb-5 mx-auto" />
+          <p className="text-gold-200/80 max-w-2xl font-light text-sm md:text-base">
+            Curated premium gold-plated jewellery with up to 6 months warranty on shine and color, along with designer bridal dresses.
           </p>
         </div>
+      </div>
 
-        {/* Category Navigation Pills */}
-        <div className="mb-10 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-gold-800 scrollbar-track-transparent">
-          <div className="flex gap-3 min-w-max">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setCategory(cat)}
-                className={`px-5 py-2.5 rounded-full text-xs uppercase tracking-wider transition-all duration-300 font-semibold border ${
-                  category === cat
-                    ? "bg-gradient-to-r from-gold-600 to-gold-500 text-brown-950 border-gold-400 shadow-[0_0_15px_rgba(200,146,51,0.3)]"
-                    : "bg-brown-900 text-gold-300 border-gold-800/30 hover:border-gold-500/50"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+      <div className="max-w-7xl mx-auto px-6 pt-10">
+        {/* Category image chips */}
+        <div className="grid grid-cols-4 sm:grid-cols-7 gap-3 mb-10">
+          {[
+            { label: "All", img: "https://images.unsplash.com/photo-1573408301185-9519f94bf0cf?q=80&w=400" },
+            { label: "Bridal Sets", img: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=400" },
+            { label: "Necklaces", img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=400" },
+            { label: "Earrings & Bangles", img: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=80&w=400" },
+            { label: "Fancy Items", img: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=400" },
+            { label: "Rings", img: "https://images.unsplash.com/photo-1605100804763-247f6612644e?q=80&w=400" },
+            { label: "Anklets", img: "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?q=80&w=400" },
+          ].map((cat) => (
+            <button
+              key={cat.label}
+              onClick={() => setCategory(cat.label)}
+              className={`flex flex-col items-center gap-2 group transition-all`}
+            >
+              <div className={`w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 transition-all duration-300 ${category === cat.label ? "border-gold-400 shadow-[0_0_15px_rgba(200,146,51,0.5)]" : "border-gold-800/30 group-hover:border-gold-500/50"}`}>
+                <img src={cat.img} alt={cat.label} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+              </div>
+              <span className={`text-[9px] md:text-[10px] uppercase tracking-wider font-semibold text-center leading-tight ${category === cat.label ? "text-gold-400" : "text-gold-500/70 group-hover:text-gold-400"}`}>
+                {cat.label}
+              </span>
+            </button>
+          ))}
         </div>
+
+        {/* Bridal Dresses link chip separately */}
+        <div className="flex items-center gap-3 mb-8">
+          <button
+            onClick={() => setCategory("Bridal Dresses")}
+            className={`flex items-center gap-3 px-4 py-2 rounded-full border transition-all duration-300 ${category === "Bridal Dresses" ? "border-gold-400 bg-gold-500/10 text-gold-400 shadow-[0_0_12px_rgba(200,146,51,0.3)]" : "border-gold-800/30 text-gold-500/70 hover:border-gold-500/50"}`}
+          >
+            <div className="w-8 h-8 rounded-full overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1594552072238-185671175bf9?q=80&w=200" alt="Bridal Dresses" className="w-full h-full object-cover" />
+            </div>
+            <span className="text-xs uppercase tracking-widest font-semibold">Bridal Dresses</span>
+          </button>
+        </div>
+
+
+        {/* Category Navigation Pills - hidden, replaced by image chips above */}
+        {/* (kept in code for reference) */}
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Filters Sidebar */}
@@ -309,6 +341,9 @@ export default function CollectionsPage() {
                           alt={product.name}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                           loading="lazy"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1599643478524-fb66f72400ae?q=80&w=800";
+                          }}
                         />
 
                         {/* Availability Overlay */}

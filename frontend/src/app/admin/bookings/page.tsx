@@ -88,7 +88,19 @@ export default function AdminBookings() {
     },
     {
       title: "Product", key: "product", ellipsis: true,
-      render: (_: any, r: any) => r.product?.name || "Deleted",
+      render: (_: any, r: any) => (
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <img
+            src={r.product?.images?.[0] || "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=200"}
+            alt=""
+            style={{ width: 36, height: 36, objectFit: "cover", borderRadius: 6, border: "1px solid rgba(212,168,83,0.3)" }}
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=200";
+            }}
+          />
+          <span>{r.product?.name || "Deleted Product"}</span>
+        </div>
+      ),
     },
     {
       title: "Dates", key: "dates", width: 220,

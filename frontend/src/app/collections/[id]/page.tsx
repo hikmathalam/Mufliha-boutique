@@ -94,18 +94,18 @@ export default function ProductDetailsPage() {
         setProduct(data);
 
         // Setup gallery images
-        const mainImg = data.images[0] || "https://images.unsplash.com/photo-1599643478524-fb66f72400ae";
-        setActiveImage(mainImg);
-
-        // Generate smart detailed crops using Unsplash query modifiers
-        if (mainImg.includes("unsplash.com")) {
+        const imgs = Array.isArray(data.images) && data.images.length > 0 ? data.images : ["https://images.unsplash.com/photo-1599643478524-fb66f72400ae"];
+        setActiveImage(imgs[0]);
+        if (imgs.length > 1) {
+          setGalleryImages(imgs);
+        } else if (imgs[0].includes("unsplash.com")) {
           setGalleryImages([
-            mainImg,
-            `${mainImg}&fit=crop&w=800&h=1000&q=80`,
-            `${mainImg}&fit=crop&fp-z=2&w=800&h=1000&q=80&crop=faces,entropy`
+            imgs[0],
+            `${imgs[0]}&fit=crop&w=800&h=1000&q=80`,
+            `${imgs[0]}&fit=crop&fp-z=2&w=800&h=1000&q=80&crop=faces,entropy`
           ]);
         } else {
-          setGalleryImages([mainImg]);
+          setGalleryImages(imgs);
         }
       } catch (error) {
         console.debug("Error:", error);
@@ -322,6 +322,9 @@ export default function ProductDetailsPage() {
                 src={activeImage}
                 alt={product.name}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 cursor-zoom-in"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=800";
+                }}
               />
               {!product.isAvailable && (
                 <div className="absolute top-4 left-4 bg-brown-950/80 backdrop-blur-sm border border-gold-800/30 text-gold-400 px-3 py-1 rounded text-xs uppercase tracking-widest font-semibold">
@@ -341,7 +344,9 @@ export default function ProductDetailsPage() {
                       activeImage === imgUrl ? "border-gold-500 scale-105 shadow-lg" : "border-gold-800/30 hover:border-gold-500/50"
                     }`}
                   >
-                    <img src={imgUrl} alt={`Thumbnail ${idx}`} className="w-full h-full object-cover" />
+                    <img src={imgUrl} alt={`Thumbnail ${idx}`} className="w-full h-full object-cover"
+                      onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=200"; }}
+                    />
                   </button>
                 ))}
               </div>

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState } from "react";
@@ -38,62 +39,114 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-brown-950 p-4">
-      <div className="w-full max-w-md bg-brown-900 p-8 rounded-xl border border-gold-800/30 shadow-2xl">
-        <div className="mb-8 text-center flex flex-col items-center">
-          <img
-            src="/logo.jpg"
-            alt="Mufliha Boutique Logo"
-            className="h-16 w-16 rounded-full object-cover border border-gold-500/30 mb-3"
-          />
-          <Link href="/" className="text-xl font-serif text-gold-500 hover:text-gold-400">Mufliha Boutique</Link>
-          <h2 className="text-3xl font-serif text-gold-400 mt-4">Create Account</h2>
+    <div className="min-h-screen flex bg-[#1a120c]">
+      {/* Left: Decorative Image Panel */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1a120c]/50 via-transparent to-[#1a120c]/80 z-10" />
+        <img
+          src="https://images.unsplash.com/photo-1594552072238-185671175bf9?q=80&w=2787&auto=format&fit=crop"
+          alt="Luxury Bridal Dress"
+          className="w-full h-full object-cover"
+        />
+        {/* Overlay content */}
+        <div className="absolute inset-0 z-20 flex flex-col justify-end p-14">
+          <div className="border-l-2 border-[#c89233] pl-6 mb-8">
+            <p className="font-serif text-2xl italic text-[#f5eedc] leading-relaxed mb-3">
+              "Your bridal story begins here."
+            </p>
+            <p className="text-[#ddbf7f] text-sm uppercase tracking-widest">— Mufliha Boutique</p>
+          </div>
+          <div className="flex gap-6 flex-wrap">
+            {[
+              { icon: "✓", text: "6-Month Warranty" },
+              { icon: "✓", text: "Premium Pieces" },
+              { icon: "✓", text: "Easy Booking" },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <span className="text-[#c89233] font-bold">{item.icon}</span>
+                <span className="text-[#ddbf7f] text-sm">{item.text}</span>
+              </div>
+            ))}
+          </div>
         </div>
-        
-        {error && <div className="mb-4 p-3 bg-red-500/10 border border-red-500/50 text-red-400 rounded-lg text-sm">{error}</div>}
-        
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-gold-200/70 mb-2 text-sm">Full Name</label>
-            <input 
-              type="text" 
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full bg-brown-950 border border-gold-800/30 rounded-lg p-3 text-gold-50 focus:outline-none focus:border-gold-500 transition-colors"
-              required 
+        {/* Logo top-left overlay */}
+        <div className="absolute top-8 left-8 z-30 flex items-center gap-3">
+          <img src="/logo.jpg" alt="Logo" className="h-10 w-10 rounded-full object-cover border border-[#c89233]/40" />
+          <span className="font-serif text-lg text-[#ddbf7f]">Mufliha Boutique</span>
+        </div>
+      </div>
+
+      {/* Right: Form Panel */}
+      <div className="flex-1 flex items-center justify-center p-8 bg-[#1a120c]">
+        <div className="w-full max-w-md">
+          {/* Mobile logo */}
+          <div className="lg:hidden mb-8 text-center flex flex-col items-center">
+            <img
+              src="/logo.jpg"
+              alt="Mufliha Boutique Logo"
+              className="h-16 w-16 rounded-full object-cover border border-[#c89233]/30 mb-3"
             />
+            <Link href="/" className="text-xl font-serif text-[#c89233] hover:text-[#ddbf7f]">Mufliha Boutique</Link>
           </div>
-          <div>
-            <label className="block text-gold-200/70 mb-2 text-sm">Email</label>
-            <input 
-              type="email" 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-brown-950 border border-gold-800/30 rounded-lg p-3 text-gold-50 focus:outline-none focus:border-gold-500 transition-colors"
-              required 
-            />
+
+          <div className="bg-[#2d2116] p-10 rounded-xl border border-[#c89233]/20 shadow-2xl">
+            <h2 className="text-3xl font-serif text-[#ddbf7f] mb-2">Create Account</h2>
+            <p className="text-[#ddbf7f]/50 text-sm mb-8">Join to explore and book luxury bridal rentals</p>
+            
+            {error && <div className="mb-4 p-3 bg-red-500/10 border border-red-500/50 text-red-400 rounded-lg text-sm">{error}</div>}
+            
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label className="block text-[#ddbf7f]/70 mb-2 text-sm uppercase tracking-wider">Full Name</label>
+                <input 
+                  type="text" 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full bg-[#1a120c] border border-[#c89233]/20 rounded-lg p-3.5 text-[#fbf8f1] focus:outline-none focus:border-[#c89233] transition-colors placeholder:text-[#c89233]/20"
+                  placeholder="Your full name"
+                  required 
+                />
+              </div>
+              <div>
+                <label className="block text-[#ddbf7f]/70 mb-2 text-sm uppercase tracking-wider">Email</label>
+                <input 
+                  type="email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full bg-[#1a120c] border border-[#c89233]/20 rounded-lg p-3.5 text-[#fbf8f1] focus:outline-none focus:border-[#c89233] transition-colors placeholder:text-[#c89233]/20"
+                  placeholder="your@email.com"
+                  required 
+                />
+              </div>
+              <div>
+                <label className="block text-[#ddbf7f]/70 mb-2 text-sm uppercase tracking-wider">Password</label>
+                <input 
+                  type="password" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full bg-[#1a120c] border border-[#c89233]/20 rounded-lg p-3.5 text-[#fbf8f1] focus:outline-none focus:border-[#c89233] transition-colors placeholder:text-[#c89233]/20"
+                  placeholder="••••••••"
+                  required 
+                />
+              </div>
+              <button 
+                type="submit" 
+                disabled={isLoading}
+                className="w-full bg-gradient-to-r from-[#b07628] to-[#c89233] text-[#1a120c] font-bold py-3.5 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 uppercase tracking-widest text-sm mt-2"
+              >
+                {isLoading ? "Creating Account..." : "Sign Up"}
+              </button>
+            </form>
+            <p className="mt-6 text-center text-[#ddbf7f]/40 text-sm">
+              Already have an account?{" "}
+              <Link href="/login" className="text-[#c89233] hover:text-[#ddbf7f] transition-colors">Log in</Link>
+            </p>
           </div>
-          <div>
-            <label className="block text-gold-200/70 mb-2 text-sm">Password</label>
-            <input 
-              type="password" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-brown-950 border border-gold-800/30 rounded-lg p-3 text-gold-50 focus:outline-none focus:border-gold-500 transition-colors"
-              required 
-            />
-          </div>
-          <button 
-            type="submit" 
-            disabled={isLoading}
-            className="w-full bg-gradient-to-r from-gold-600 to-gold-500 text-brown-950 font-semibold py-3 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
-          >
-            {isLoading ? "Signing Up..." : "Sign Up"}
-          </button>
-        </form>
-        <p className="mt-6 text-center text-gold-200/50 text-sm">
-          Already have an account? <Link href="/login" className="text-gold-400 hover:underline">Log in</Link>
-        </p>
+
+          <p className="text-center text-[#ddbf7f]/30 text-xs mt-6">
+            <Link href="/" className="hover:text-[#ddbf7f]/60 transition-colors">← Back to Home</Link>
+          </p>
+        </div>
       </div>
     </div>
   );
