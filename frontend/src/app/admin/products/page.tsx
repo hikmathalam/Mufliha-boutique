@@ -150,7 +150,8 @@ export default function AdminProducts() {
       render: (imgs: string[]) => {
         const src = imgs?.[0] || "https://images.unsplash.com/photo-1599643478524-fb66f72400ae?q=80&w=200";
         return (
-          <div style={{ display: "flex", itemsCenter: "center", gap: 8 }}>
+          // <div style={{ display: "flex", itemsCenter: "center", gap: 8 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <img
               src={src}
               alt=""
